@@ -35,6 +35,13 @@
             padding: 20px;
         }
 
+        update-text {
+            font-size: 1.1em;
+            background: #fff3cd;
+            padding: 12px;
+            border-radius: 10px;
+}
+
         .card {
             background: white;
             border-radius: 15px;
@@ -111,10 +118,24 @@
 </header>
 
 <section>
+    <div class="card" style="border:3px solid #ff9800;">
+    <h2>📢 Today's Updates</h2>
+
+    <p id="update-text">
+        We are excited to announce that we will be serving fresh salads at our stall<br>
+        near <stong><B>EASGON JATHARA</B>,Kaghaznagar</strong> from 6 AM to 12 PM.<br>
+    </p>
+
+    <p style="font-size:0.9em;color:gray;">
+    Last updated: <span id="today-date"></span>
+</p>
+
+    </p>
+</div>
 
     <div class="card">
         <h2>📍 Location</h2>
-        <p>Near SBI Opposite, Kaghaznagar,504296</p>
+        <p>Near SBI, Kaghaznagar</p>
         <iframe 
             src="https://www.google.com/maps?q=State+Bank+of+India+Kaghaznagar&output=embed">
         </iframe>
@@ -154,7 +175,7 @@
            target="_blank">
             💬 Chat on WhatsApp
         </a>
-        <p style="margin-top:10px;">📞 <strong>9390276347</strong></p>
+        <p style="margin-top:10px;">📞 9390276347</p>
     </div>
 
     <div class="card">
@@ -171,6 +192,18 @@
 <footer>
     <p>© 2026 Fresh Salad Kaghaznagar | Eat Fresh, Stay Healthy 🌱</p>
 </footer>
+<script>
+    const today = new Date();
+
+    const options = { 
+        day: 'numeric', 
+        month: 'long', 
+        year: 'numeric' 
+    };
+
+    document.getElementById("today-date").innerHTML =
+        today.toLocaleDateString('en-IN', options);
+</script>
 
 </body>
 </html>
