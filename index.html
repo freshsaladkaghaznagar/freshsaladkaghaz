@@ -257,24 +257,61 @@
             document.getElementById("time-title").innerHTML = text[lang].time;
             document.getElementById("menu-title").innerHTML = text[lang].menu;
         }
-        function sendFeedback() {
-            let name = document.getElementById("fname").value;
-            let rating = document.getElementById("rating").value;
-            let message = document.getElementById("message").value;
-
-            if (name == "" || message == "") {
-                alert("Please fill name and feedback");
-                return;
-            }
-
-            let text = "Customer Feedback:%0AName: " + name +
-                "%0ARating: " + rating +
-                "%0AMessage: " + message;
-
-            window.open("https://wa.me/919390276347?text=" + text, "_blank");
-        }
+        
 
     </script>
+<!-- FIREBASE FEEDBACK DATABASE -->
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+
+/* Your Firebase Config */
+const firebaseConfig = {
+  apiKey: "AIzaSyDNIzgpWSDtA4X0vpFeLTG4mSq_9nPU67w",
+  authDomain: "fresh-salad-kaghaznagar.firebaseapp.com",
+  projectId: "fresh-salad-kaghaznagar",
+  storageBucket: "fresh-salad-kaghaznagar.firebasestorage.app",
+  messagingSenderId: "36154230598",
+  appId: "1:36154230598:web:938e62cd20df46c5360747"
+};
+
+/* Initialize Firebase */
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+/* NEW FEEDBACK FUNCTION (DATABASE) */
+window.sendFeedback = async function () {
+
+    let name = document.getElementById("fname").value;
+    let rating = document.getElementById("rating").value;
+    let message = document.getElementById("message").value;
+
+    if (name === "" || message === "") {
+        alert("Please fill name and feedback");
+        return;
+    }
+
+    try {
+        await addDoc(collection(db, "feedback"), {
+            name: name,
+            rating: rating,
+            message: message,
+            time: new Date().toLocaleString()
+        });
+
+        alert("✅ Feedback submitted successfully!");
+
+        document.getElementById("fname").value = "";
+        document.getElementById("message").value = "";
+
+    } catch (error) {
+        alert("Error saving feedback");
+        console.error(error);
+    }
+};
+
+</script>
 
 </body>
 
