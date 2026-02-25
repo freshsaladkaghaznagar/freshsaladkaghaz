@@ -112,21 +112,65 @@
             background: #c72c5d;
         }
 
-        /* DELIVERY BUTTON */
-        .delivery-btn {
-            display: inline-block;
-            background: #ff6f00;
-            color: white;
-            padding: 12px 22px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: 0.3s;
+        /* DELIVERY BANNER */
+        .delivery-banner {
+            background: #ffffff;
+            color: rgb(9, 1, 1);
+            text-align: center;
+            padding: 30px 20px;
+            border-radius: 10px;
         }
 
-        .delivery-btn:hover {
-            background: #e65100;
+        .delivery-banner h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        .delivery-banner p {
+            margin: 10px 0 25px;
+            font-size: 18px;
+        }
+
+        .delivery-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .delivery-call {
+            background: white;
+            color: #bd8786;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .delivery-wa {
+            background: #25D366;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .delivery-online {
+            background: black;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .delivery-call:hover,
+        .delivery-wa:hover,
+        .delivery-online:hover {
+            opacity: 0.85;
             transform: scale(1.05);
+            transition: 0.3s;
         }
 
         /* FLOATING WHATSAPP */
@@ -223,17 +267,28 @@
             </a>
         </div>
 
-        <div class="card">
-            <h2>🚚 Online Delivery Partner</h2>
-            <p>Order Fresh Salad through our trusted delivery partner</p>
-            <h2 style="color:#ff0000;">Mana Delivery</h2>
-            <a class="delivery-btn"
-                href="https://sirpur-kagaznagar.github.io/mana-delivery1/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAQMDzBleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA81NjcwNjczNDMzNTI0MjcAAaeRyvsgEyza5Z6lxP05NWHtdn6RV8LjamdVcTIn3QF3H0oUKgTP7LtSna-xVw_aem_bA6N6Kp0BG7oJVeK-1iLLA"
-                target="_blank">
-                🛵 Order Online Now
-            </a>
-        </div>
-        </a>
+        <div class="card delivery-banner">
+
+            <h1>Mana Delivery</h1>
+            <p>Our Fast & Trusted Delivery patner– Kaghaznagar</p>
+
+            <div class="delivery-buttons">
+
+                <a href="tel:9494378247" class="delivery-call">
+                    📞 Call Now
+                </a>
+
+                <a href="https://wa.me/919494378247" target="_blank" class="delivery-wa">
+                    💬 WhatsApp Order
+                </a>
+
+                <a href="https://sirpur-kagaznagar.github.io/mana-delivery1/?utm_source=ig&utm_medium=social&utm_content=link_in_bio"
+                    target="_blank" class="delivery-online">
+                    🛵 Order Online
+                </a>
+
+            </div>
+
         </div>
         <div class="card">
             <h2>📝Feedback</h2>
