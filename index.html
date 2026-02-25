@@ -112,6 +112,23 @@
             background: #c72c5d;
         }
 
+        /* DELIVERY BUTTON */
+        .delivery-btn {
+            display: inline-block;
+            background: #ff6f00;
+            color: white;
+            padding: 12px 22px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .delivery-btn:hover {
+            background: #e65100;
+            transform: scale(1.05);
+        }
+
         /* FLOATING WHATSAPP */
         .floating-wa {
             position: fixed;
@@ -205,6 +222,19 @@
                 📸 @fresh_salad_kaghaznagar
             </a>
         </div>
+
+        <div class="card">
+            <h2>🚚 Online Delivery Partner</h2>
+            <p>Order Fresh Salad through our trusted delivery partner</p>
+            <h2 style="color:#ff0000;">Mana Delivery</h2>
+            <a class="delivery-btn"
+                href="https://sirpur-kagaznagar.github.io/mana-delivery1/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAQMDzBleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA81NjcwNjczNDMzNTI0MjcAAaeRyvsgEyza5Z6lxP05NWHtdn6RV8LjamdVcTIn3QF3H0oUKgTP7LtSna-xVw_aem_bA6N6Kp0BG7oJVeK-1iLLA"
+                target="_blank">
+                🛵 Order Online Now
+            </a>
+        </div>
+        </a>
+        </div>
         <div class="card">
             <h2>📝Feedback</h2>
 
@@ -257,61 +287,61 @@
             document.getElementById("time-title").innerHTML = text[lang].time;
             document.getElementById("menu-title").innerHTML = text[lang].menu;
         }
-        
+
 
     </script>
-<!-- FIREBASE FEEDBACK DATABASE -->
-<script type="module">
+    <!-- FIREBASE FEEDBACK DATABASE -->
+    <script type="module">
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
-/* Your Firebase Config */
-const firebaseConfig = {
-  apiKey: "AIzaSyDNIzgpWSDtA4X0vpFeLTG4mSq_9nPU67w",
-  authDomain: "fresh-salad-kaghaznagar.firebaseapp.com",
-  projectId: "fresh-salad-kaghaznagar",
-  storageBucket: "fresh-salad-kaghaznagar.firebasestorage.app",
-  messagingSenderId: "36154230598",
-  appId: "1:36154230598:web:938e62cd20df46c5360747"
-};
+        /* Your Firebase Config */
+        const firebaseConfig = {
+            apiKey: "AIzaSyDNIzgpWSDtA4X0vpFeLTG4mSq_9nPU67w",
+            authDomain: "fresh-salad-kaghaznagar.firebaseapp.com",
+            projectId: "fresh-salad-kaghaznagar",
+            storageBucket: "fresh-salad-kaghaznagar.firebasestorage.app",
+            messagingSenderId: "36154230598",
+            appId: "1:36154230598:web:938e62cd20df46c5360747"
+        };
 
-/* Initialize Firebase */
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+        /* Initialize Firebase */
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
-/* NEW FEEDBACK FUNCTION (DATABASE) */
-window.sendFeedback = async function () {
+        /* NEW FEEDBACK FUNCTION (DATABASE) */
+        window.sendFeedback = async function () {
 
-    let name = document.getElementById("fname").value;
-    let rating = document.getElementById("rating").value;
-    let message = document.getElementById("message").value;
+            let name = document.getElementById("fname").value;
+            let rating = document.getElementById("rating").value;
+            let message = document.getElementById("message").value;
 
-    if (name === "" || message === "") {
-        alert("Please fill name and feedback");
-        return;
-    }
+            if (name === "" || message === "") {
+                alert("Please fill name and feedback");
+                return;
+            }
 
-    try {
-        await addDoc(collection(db, "feedback"), {
-            name: name,
-            rating: rating,
-            message: message,
-            time: new Date().toLocaleString()
-        });
+            try {
+                await addDoc(collection(db, "feedback"), {
+                    name: name,
+                    rating: rating,
+                    message: message,
+                    time: new Date().toLocaleString()
+                });
 
-        alert("✅ Feedback submitted successfully!");
+                alert("✅ Feedback submitted successfully!");
 
-        document.getElementById("fname").value = "";
-        document.getElementById("message").value = "";
+                document.getElementById("fname").value = "";
+                document.getElementById("message").value = "";
 
-    } catch (error) {
-        alert("Error saving feedback");
-        console.error(error);
-    }
-};
+            } catch (error) {
+                alert("Error saving feedback");
+                console.error(error);
+            }
+        };
 
-</script>
+    </script>
 
 </body>
 
