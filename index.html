@@ -1,403 +1,720 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fresh Salad Kaghaznagar</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fresh Salad Kaghaznagar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Segoe UI, Arial;
-            background: linear-gradient(to right, #e8f5e9, #f1fff1);
-        }
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        /* HEADER */
-        header {
-            background: linear-gradient(135deg, #2e8b57, #3cb371);
-            color: white;
-            text-align: center;
-            padding: 25px;
-        }
+    :root {
+      --green-deep: #1b4332;
+      --green-mid:  #2d6a4f;
+      --green-soft: #52b788;
+      --green-pale: #d8f3dc;
+      --gold:       #e9a825;
+      --cream:      #faf7f0;
+      --white:      #ffffff;
+      --text-dark:  #1a1a1a;
+      --text-muted: #5a6a5e;
+      --shadow-lg:  0 20px 60px rgba(27,67,50,0.15);
+      --shadow-md:  0 8px 30px rgba(27,67,50,0.10);
+      --radius:     18px;
+    }
 
-        .lang-btn {
-            margin: 5px;
-            padding: 8px 15px;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            background: white;
-            font-weight: bold;
-        }
+    html { scroll-behavior: smooth; }
 
-        /* STATUS BAR */
-        #status-bar {
-            text-align: center;
-            color: white;
-            padding: 10px;
-            font-weight: bold;
-        }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
 
-        /* LAYOUT */
-        section {
-            max-width: 900px;
-            margin: auto;
-            padding: 20px;
-        }
+    /* ─── NAVBAR ─────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 40px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(27,67,50,0.08);
+      transition: box-shadow .3s;
+    }
+    nav.scrolled { box-shadow: var(--shadow-md); }
+    .nav-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; font-weight: 700;
+      color: var(--green-deep);
+      letter-spacing: .5px;
+    }
+    .nav-brand span { color: var(--gold); }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a {
+      font-size: .875rem; font-weight: 500;
+      color: var(--text-muted); text-decoration: none;
+      letter-spacing: .3px; transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--green-deep); }
+    .lang-wrap { display: flex; gap: 6px; }
+    .lang-btn {
+      padding: 5px 12px; border: 1.5px solid var(--green-soft);
+      border-radius: 20px; background: transparent;
+      font-size: .75rem; font-weight: 600; font-family: 'DM Sans', sans-serif;
+      color: var(--green-mid); cursor: pointer; transition: .2s;
+    }
+    .lang-btn:hover, .lang-btn.active { background: var(--green-mid); color: #fff; }
 
-        .card {
-            background: white;
-            padding: 18px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
+    /* ─── HERO ───────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at 70% 40%, rgba(82,183,136,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse at 20% 80%, rgba(233,168,37,0.12) 0%, transparent 55%),
+        var(--green-deep);
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 120px 20px 80px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-emoji {
+      font-size: 4.5rem; display: block; margin-bottom: 24px;
+      animation: float 4s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-12px); }
+    }
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 700; color: #fff;
+      line-height: 1.1; letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+    .hero h1 span { color: var(--gold); }
+    .hero-sub {
+      font-size: 1.05rem; color: rgba(255,255,255,0.7);
+      font-weight: 300; letter-spacing: 3px; text-transform: uppercase;
+      margin-bottom: 40px;
+    }
+    #status-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 22px; border-radius: 50px;
+      font-size: .9rem; font-weight: 600;
+      backdrop-filter: blur(10px);
+      border: 1.5px solid rgba(255,255,255,0.3);
+      margin-bottom: 40px;
+    }
+    #status-badge.open   { background: rgba(82,183,136,0.25); color: #a7f3c4; }
+    #status-badge.closed { background: rgba(220,53,69,0.25);  color: #fca5a5; }
+    .status-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    .open   .status-dot { background: #4ade80; }
+    .closed .status-dot { background: #f87171; }
+    @keyframes pulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: .5; transform: scale(1.4); }
+    }
+    .hero-cta {
+      display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--gold); color: var(--green-deep);
+      padding: 14px 28px; border-radius: 50px;
+      font-weight: 700; font-size: 1rem; text-decoration: none;
+      box-shadow: 0 4px 20px rgba(233,168,37,0.4);
+      transition: .25s; letter-spacing: .2px;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(233,168,37,0.5); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.12); color: #fff;
+      padding: 14px 28px; border-radius: 50px;
+      font-weight: 600; font-size: 1rem; text-decoration: none;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      transition: .25s; letter-spacing: .2px;
+      backdrop-filter: blur(8px);
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.22); transform: translateY(-2px); }
 
-        h2 {
-            color: #2e8b57;
-        }
+    /* ─── SCROLL INDICATOR ───────────────────────── */
+    .scroll-hint {
+      position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      color: rgba(255,255,255,0.4); font-size: .7rem; letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .scroll-arrow { width: 1px; height: 40px; background: rgba(255,255,255,0.2);
+      position: relative; overflow: hidden; }
+    .scroll-arrow::after {
+      content: ''; position: absolute; top: -100%;
+      left: 0; width: 100%; height: 100%;
+      background: var(--gold);
+      animation: scrollDrop 1.8s ease-in-out infinite;
+    }
+    @keyframes scrollDrop { 0% { top:-100%; } 100% { top:200%; } }
 
-        #update-text {
-            background: #fff3cd;
-            padding: 12px;
-            border-radius: 10px;
-        }
+    /* ─── MAIN LAYOUT ────────────────────────────── */
+    main { max-width: 940px; margin: 0 auto; padding: 80px 20px 60px; }
 
-        .price {
-            color: #d84315;
-            font-size: 1.3em;
-            font-weight: bold;
-        }
+    .section-label {
+      font-size: .7rem; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--green-soft); font-weight: 600; margin-bottom: 8px;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem; font-weight: 700;
+      color: var(--green-deep); margin-bottom: 28px;
+      line-height: 1.2;
+    }
 
-        iframe {
-            width: 100%;
-            height: 300px;
-            border: 0;
-            border-radius: 10px;
-        }
+    /* ─── CARD ───────────────────────────────────── */
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 36px 40px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid rgba(27,67,50,0.05);
+      transition: transform .3s, box-shadow .3s;
+      animation: fadeUp .6s ease both;
+    }
+    .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+    @keyframes fadeUp {
+      from { opacity:0; transform: translateY(24px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
+    .card:nth-child(1)  { animation-delay: .05s; }
+    .card:nth-child(2)  { animation-delay: .10s; }
+    .card:nth-child(3)  { animation-delay: .15s; }
+    .card:nth-child(4)  { animation-delay: .20s; }
+    .card:nth-child(5)  { animation-delay: .25s; }
+    .card:nth-child(6)  { animation-delay: .30s; }
+    .card:nth-child(7)  { animation-delay: .35s; }
+    .card:nth-child(8)  { animation-delay: .40s; }
 
-        /* WHATSAPP BUTTON */
-        .whatsapp-order {
-            display: inline-block;
-            background: #25D366;
-            color: white;
-            padding: 14px 22px;
-            border-radius: 30px;
-            font-size: 18px;
-            text-decoration: none;
-            font-weight: bold;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            transition: 0.3s;
-        }
+    /* ─── UPDATE BANNER ──────────────────────────── */
+    #update-text {
+      background: linear-gradient(135deg, #fffde7, #fff8e1);
+      border-left: 4px solid var(--gold);
+      padding: 16px 20px; border-radius: 10px;
+      font-size: .95rem; color: #5a4a1a;
+      margin: 16px 0 12px;
+    }
+    .date-tag {
+      font-size: .78rem; color: var(--text-muted); font-weight: 400;
+    }
 
-        .whatsapp-order:hover {
-            background: #1ebc59;
-            transform: scale(1.05);
-        }
+    /* ─── MAP ────────────────────────────────────── */
+    iframe {
+      width: 100%; height: 280px; border: 0;
+      border-radius: 12px; margin-top: 16px;
+      box-shadow: var(--shadow-md);
+    }
 
-        /* INSTAGRAM BUTTON */
-        .insta-btn {
-            display: inline-block;
-            background: #E1306C;
-            color: white;
-            padding: 12px 20px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: 0.3s;
-        }
+    /* ─── TIMING ─────────────────────────────────── */
+    .timing-row {
+      display: flex; align-items: center; gap: 16px;
+      padding: 14px 20px;
+      background: var(--green-pale); border-radius: 12px;
+    }
+    .timing-icon { font-size: 1.6rem; }
+    .timing-text { font-size: 1rem; font-weight: 500; color: var(--green-deep); }
 
-        .insta-btn:hover {
-            background: #c72c5d;
-        }
+    /* ─── MENU GRID ──────────────────────────────── */
+    .menu-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 16px; margin: 24px 0;
+    }
+    .menu-item {
+      background: var(--green-pale);
+      border-radius: 14px; padding: 22px 16px;
+      text-align: center;
+      transition: background .25s, transform .25s;
+      cursor: default;
+    }
+    .menu-item:hover { background: var(--green-soft); transform: scale(1.03); }
+    .menu-item:hover .menu-item-name { color: #fff; }
+    .menu-item-emoji { font-size: 2rem; display: block; margin-bottom: 8px; }
+    .menu-item-name { font-weight: 600; font-size: .9rem; color: var(--green-deep); }
+    .price-tag {
+      display: inline-flex; align-items: center;
+      background: var(--green-deep); color: var(--gold);
+      padding: 10px 24px; border-radius: 50px;
+      font-size: 1.15rem; font-weight: 700;
+      letter-spacing: .5px;
+    }
 
-        /* DELIVERY BANNER */
-        .delivery-banner {
-            background: #ffffff;
-            color: rgb(9, 1, 1);
-            text-align: center;
-            padding: 30px 20px;
-            border-radius: 10px;
-        }
+    /* ─── SPECIAL ORDERS ─────────────────────────── */
+    .order-list { list-style: none; display: flex; flex-direction: column; gap: 12px; margin: 20px 0; }
+    .order-list li {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 18px; border-radius: 12px;
+      background: var(--green-pale); font-weight: 500; font-size: .95rem;
+      color: var(--green-deep);
+    }
+    .order-list li::before {
+      content: '✓'; width: 24px; height: 24px; border-radius: 50%;
+      background: var(--green-mid); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .8rem; font-weight: 700; flex-shrink: 0;
+    }
+    .hygiene-badge {
+      margin-top: 20px; padding: 14px 20px;
+      background: linear-gradient(135deg, #e8f5e9, #d0f0dc);
+      border-radius: 12px; font-size: .9rem; font-weight: 500;
+      color: var(--green-deep); display: flex; align-items: center; gap: 10px;
+    }
 
-        .delivery-banner h1 {
-            margin: 0;
-            font-size: 32px;
-        }
+    /* ─── CONTACT / WHATSAPP ─────────────────────── */
+    .contact-row {
+      display: flex; flex-wrap: wrap; gap: 14px; align-items: center;
+      margin-top: 20px;
+    }
+    .btn-wa {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: #25D366; color: #fff;
+      padding: 14px 26px; border-radius: 50px;
+      font-weight: 700; font-size: .95rem; text-decoration: none;
+      box-shadow: 0 4px 18px rgba(37,211,102,0.35);
+      transition: .25s;
+    }
+    .btn-wa:hover { transform: translateY(-2px); background: #1fc55e; box-shadow: 0 8px 28px rgba(37,211,102,0.45); }
+    .phone-tag {
+      font-size: 1rem; font-weight: 600; color: var(--text-muted);
+      display: flex; align-items: center; gap: 6px;
+    }
 
-        .delivery-banner p {
-            margin: 10px 0 25px;
-            font-size: 18px;
-        }
+    /* ─── INSTAGRAM ──────────────────────────────── */
+    .btn-insta {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: linear-gradient(135deg, #f58529, #dd2a7b, #8134af);
+      color: #fff; padding: 14px 26px; border-radius: 50px;
+      font-weight: 700; font-size: .95rem; text-decoration: none;
+      box-shadow: 0 4px 18px rgba(221,42,123,0.3);
+      transition: .25s;
+    }
+    .btn-insta:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(221,42,123,0.45); }
 
-        .delivery-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-        }
+    /* ─── DELIVERY CARD ──────────────────────────── */
+    .delivery-card {
+      background: var(--green-deep);
+      border-radius: var(--radius); padding: 44px 40px;
+      text-align: center; position: relative; overflow: hidden;
+      margin-bottom: 28px; animation: fadeUp .6s .45s ease both;
+    }
+    .delivery-card::before {
+      content: ''; position: absolute; top: -60px; right: -60px;
+      width: 220px; height: 220px; border-radius: 50%;
+      background: rgba(82,183,136,0.12);
+    }
+    .delivery-card::after {
+      content: ''; position: absolute; bottom: -40px; left: -40px;
+      width: 160px; height: 160px; border-radius: 50%;
+      background: rgba(233,168,37,0.08);
+    }
+    .delivery-card .section-label { color: rgba(255,255,255,0.5); }
+    .delivery-card h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.4rem; font-weight: 700; color: #fff;
+      margin-bottom: 8px;
+    }
+    .delivery-card p { color: rgba(255,255,255,0.65); margin-bottom: 32px; font-size: .95rem; }
+    .delivery-btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; position: relative; z-index: 1; }
+    .d-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 24px; border-radius: 50px;
+      font-weight: 600; font-size: .9rem; text-decoration: none;
+      transition: .25s;
+    }
+    .d-btn-call { background: rgba(255,255,255,0.12); color: #fff; border: 1.5px solid rgba(255,255,255,0.25); backdrop-filter: blur(8px); }
+    .d-btn-wa   { background: #25D366; color: #fff; }
+    .d-btn-online { background: var(--gold); color: var(--green-deep); font-weight: 700; }
+    .d-btn:hover { transform: translateY(-2px); filter: brightness(1.08); }
 
-        .delivery-call {
-            background: white;
-            color: #bd8786;
-            padding: 12px 25px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: bold;
-        }
+    /* ─── FEEDBACK ───────────────────────────────── */
+    .form-group { margin-bottom: 18px; }
+    .form-label {
+      display: block; font-size: .8rem; font-weight: 600;
+      color: var(--text-muted); text-transform: uppercase;
+      letter-spacing: 1px; margin-bottom: 8px;
+    }
+    .form-control {
+      width: 100%; padding: 13px 16px;
+      border: 1.5px solid #e0ebe4; border-radius: 10px;
+      font-family: 'DM Sans', sans-serif; font-size: .95rem;
+      background: var(--cream); color: var(--text-dark);
+      transition: border-color .2s, box-shadow .2s; outline: none;
+    }
+    .form-control:focus {
+      border-color: var(--green-soft);
+      box-shadow: 0 0 0 3px rgba(82,183,136,0.15);
+    }
+    .stars-row { display: flex; gap: 8px; }
+    .star-opt {
+      flex: 1; padding: 10px 6px; border: 1.5px solid #e0ebe4;
+      border-radius: 10px; text-align: center; cursor: pointer;
+      font-size: .9rem; transition: .2s; background: var(--cream);
+    }
+    .star-opt:hover, .star-opt.selected { border-color: var(--gold); background: #fffbe6; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } }
+    .btn-submit {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--green-deep); color: #fff;
+      padding: 14px 28px; border-radius: 50px; border: none;
+      font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 700;
+      cursor: pointer; transition: .25s; letter-spacing: .2px;
+    }
+    .btn-submit:hover { background: var(--green-mid); transform: translateY(-2px); }
+    #feedback-success {
+      display: none; margin-top: 16px; padding: 14px 20px;
+      background: linear-gradient(135deg, #e8f5e9, #d0f0dc);
+      border-radius: 10px; color: var(--green-deep); font-weight: 600;
+    }
 
-        .delivery-wa {
-            background: #25D366;
-            color: white;
-            padding: 12px 25px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: bold;
-        }
+    /* ─── FOOTER ─────────────────────────────────── */
+    footer {
+      background: var(--green-deep); color: rgba(255,255,255,0.6);
+      text-align: center; padding: 28px 20px;
+      font-size: .85rem; letter-spacing: .3px;
+    }
+    footer strong { color: rgba(255,255,255,0.9); }
 
-        .delivery-online {
-            background: black;
-            color: white;
-            padding: 12px 25px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: bold;
-        }
+    /* ─── FLOATING WA ────────────────────────────── */
+    .fab {
+      position: fixed; bottom: 28px; right: 28px; z-index: 999;
+      width: 58px; height: 58px; border-radius: 50%;
+      background: #25D366; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; text-decoration: none;
+      box-shadow: 0 6px 24px rgba(37,211,102,0.4);
+      transition: .25s;
+    }
+    .fab:hover { transform: scale(1.1); box-shadow: 0 10px 34px rgba(37,211,102,0.55); }
 
-        .delivery-call:hover,
-        .delivery-wa:hover,
-        .delivery-online:hover {
-            opacity: 0.85;
-            transform: scale(1.05);
-            transition: 0.3s;
-        }
-
-        /* FLOATING WHATSAPP */
-        .floating-wa {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #25D366;
-            color: white;
-            font-size: 24px;
-            padding: 16px;
-            border-radius: 50%;
-            text-decoration: none;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        /* FOOTER */
-        footer {
-            background: #2e8b57;
-            color: white;
-            text-align: center;
-            padding: 15px;
-        }
-    </style>
+    /* ─── MOBILE NAV ─────────────────────────────── */
+    @media (max-width: 700px) {
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+      .card { padding: 24px 22px; }
+      main { padding: 60px 14px 50px; }
+      .delivery-card { padding: 36px 22px; }
+    }
+  </style>
 </head>
-
 <body>
 
-    <header>
-        <h1 id="title">🥗 Fresh Salad Kaghaznagar</h1>
-        <p id="tagline">Fresh • Healthy • Affordable</p>
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <div class="nav-brand">🥗 Fresh Salad <span>Kaghaznagar</span></div>
+    <ul class="nav-links">
+      <li><a href="#updates">Updates</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#order">Order</a></li>
+      <li><a href="#feedback">Feedback</a></li>
+    </ul>
+    <div class="lang-wrap">
+      <button class="lang-btn active" onclick="setLang('en',this)">EN</button>
+      <button class="lang-btn"        onclick="setLang('te',this)">తె</button>
+      <button class="lang-btn"        onclick="setLang('hi',this)">हि</button>
+    </div>
+  </nav>
 
-        <button class="lang-btn" onclick="setLang('en')">EN</button>
-        <button class="lang-btn" onclick="setLang('te')">తెలుగు</button>
-        <button class="lang-btn" onclick="setLang('hi')">हिन्दी</button>
-    </header>
+  <!-- HERO -->
+  <section class="hero">
+    <div>
+      <span class="hero-emoji">🥗</span>
+      <h1><span id="h-line1">Fresh</span><br>Salad <span>Kaghaznagar</span></h1>
+      <p class="hero-sub" id="hero-tagline">Fresh &nbsp;•&nbsp; Healthy &nbsp;•&nbsp; Affordable</p>
+      <div id="status-badge">
+        <span class="status-dot"></span>
+        <span id="status-text">Checking…</span>
+      </div>
+      <div class="hero-cta">
+        <a href="https://wa.me/919390276347" target="_blank" class="btn-primary">📲 Order Now</a>
+        <a href="#menu" class="btn-secondary">View Menu ↓</a>
+      </div>
+    </div>
+    <div class="scroll-hint">
+      <span>scroll</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
 
-    <div id="status-bar"></div>
+  <main>
 
-    <section>
+    <!-- TODAY'S UPDATES -->
+    <div class="card" id="updates">
+      <p class="section-label">Daily</p>
+      <h2 class="section-title" id="updates-title">Today's Updates</h2>
+      <div id="update-text">🥗 Fresh salads available today — come visit us!</div>
+      <p class="date-tag">Last updated: <span id="today-date"></span></p>
+    </div>
 
-        <div class="card">
-            <h2 id="updates-title">Today's Updates</h2>
-            <div id="update-text">Fresh salads available today 🥗</div>
-            <p style="color:gray;">Last updated: <span id="today-date"></span></p>
+    <!-- LOCATION -->
+    <div class="card">
+      <p class="section-label">Find Us</p>
+      <h2 class="section-title" id="location-title">Location</h2>
+      <p style="color:var(--text-muted); font-size:.95rem;">Near SBI, Kaghaznagar, Telangana</p>
+      <iframe src="https://www.google.com/maps?q=State+Bank+of+India+Kaghaznagar&output=embed" loading="lazy"></iframe>
+    </div>
+
+    <!-- TIMINGS -->
+    <div class="card">
+      <p class="section-label">When We're Open</p>
+      <h2 class="section-title" id="time-title">Timings</h2>
+      <div class="timing-row">
+        <span class="timing-icon">🌅</span>
+        <span class="timing-text">Morning: 6:00 AM – 12:00 PM</span>
+      </div>
+    </div>
+
+    <!-- MENU -->
+    <div class="card" id="menu">
+      <p class="section-label">What We Offer</p>
+      <h2 class="section-title" id="menu-title">Our Menu</h2>
+      <div class="menu-grid">
+        <div class="menu-item">
+          <span class="menu-item-emoji">🥦</span>
+          <span class="menu-item-name" id="mi-veg">Vegetable Salad</span>
         </div>
-
-        <div class="card">
-            <h2 id="location-title">Location</h2>
-            <p>Near SBI, Kaghaznagar</p>
-            <iframe src="https://www.google.com/maps?q=State+Bank+of+India+Kaghaznagar&output=embed"></iframe>
+        <div class="menu-item">
+          <span class="menu-item-emoji">🍉</span>
+          <span class="menu-item-name" id="mi-fruit">Fruit Salad</span>
         </div>
-
-        <div class="card">
-            <h2 id="time-title">Timings</h2>
-            <p>Morning: 6:00 AM – 12:00 PM</p>
+        <div class="menu-item">
+          <span class="menu-item-emoji">🌱</span>
+          <span class="menu-item-name" id="mi-sprouts">Sprouts</span>
         </div>
-
-        <div class="card">
-            <h2 id="menu-title">Menu</h2>
-            <ul>
-                <li>Vegetable Salad</li>
-                <li>Fruit Salad</li>
-                <li>Sprouts</li>
-                <li>Mixed Salad</li>
-            </ul>
-            <p class="price">₹30 per bowl</p>
+        <div class="menu-item">
+          <span class="menu-item-emoji">🥗</span>
+          <span class="menu-item-name" id="mi-mixed">Mixed Salad</span>
         </div>
+      </div>
+      <div style="margin-top:8px;">
+        <span class="price-tag">₹30 per bowl</span>
+      </div>
+    </div>
 
-        <div class="card">
-            <h2 id="order-title">Special Orders</h2>
-            <p>✔ Birthday Parties
-                <br>✔ Functions & Events
-                <br>✔ Bulk Orders
-                <br><br>
-                <strong>Fresh & hygienic preparation guaranteed!</strong>
-            </p>
+    <!-- SPECIAL ORDERS -->
+    <div class="card">
+      <p class="section-label">Go Big</p>
+      <h2 class="section-title" id="order-title">Special Orders</h2>
+      <ul class="order-list">
+        <li id="so-1">Birthday Parties</li>
+        <li id="so-2">Functions &amp; Events</li>
+        <li id="so-3">Bulk Orders</li>
+      </ul>
+      <div class="hygiene-badge">🛡️ Fresh &amp; hygienic preparation guaranteed!</div>
+    </div>
+
+    <!-- CONTACT / WHATSAPP -->
+    <div class="card" id="order">
+      <p class="section-label">Get In Touch</p>
+      <h2 class="section-title" id="contact-title">Order on WhatsApp</h2>
+      <div class="contact-row">
+        <a class="btn-wa" href="https://wa.me/919390276347" target="_blank">
+          📲 Chat &amp; Order Now
+        </a>
+        <span class="phone-tag">📞 9390276347</span>
+      </div>
+    </div>
+
+    <!-- INSTAGRAM -->
+    <div class="card">
+      <p class="section-label">Stay Connected</p>
+      <h2 class="section-title">Follow Us</h2>
+      <a class="btn-insta"
+        href="https://www.instagram.com/fresh_salad_kagaznagar?utm_source=qr&igsh=end0bGY0eHgzeDkz"
+        target="_blank">
+        📸 @fresh_salad_kaghaznagar
+      </a>
+    </div>
+
+    <!-- DELIVERY -->
+    <div class="delivery-card">
+      <p class="section-label">Delivery Partner</p>
+      <h2>Mana Delivery 🛵</h2>
+      <p>Our fast &amp; trusted delivery partner in Kaghaznagar</p>
+      <div class="delivery-btns">
+        <a href="tel:9494378247" class="d-btn d-btn-call">📞 Call Now</a>
+        <a href="https://wa.me/919494378247" target="_blank" class="d-btn d-btn-wa">💬 WhatsApp</a>
+        <a href="https://sirpur-kagaznagar.github.io/mana-delivery1/?utm_source=ig&utm_medium=social&utm_content=link_in_bio"
+          target="_blank" class="d-btn d-btn-online">🛵 Order Online</a>
+      </div>
+    </div>
+
+    <!-- FEEDBACK -->
+    <div class="card" id="feedback">
+      <p class="section-label">Your Voice</p>
+      <h2 class="section-title">Leave Feedback</h2>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="fname">Your Name</label>
+          <input class="form-control" type="text" id="fname" placeholder="e.g. Ravi Kumar" />
         </div>
-
-        <div class="card">
-            <h2 id="contact-title">Order on WhatsApp</h2>
-            <a class="whatsapp-order" href="https://wa.me/919390276347" target="_blank">
-                📲 Chat & Order Now
-            </a>
-            <p style="margin-top:10px;">📞 9390276347</p>
+        <div class="form-group">
+          <label class="form-label">Rating</label>
+          <div class="stars-row" id="stars-row">
+            <div class="star-opt" data-val="⭐⭐⭐⭐⭐ Excellent" onclick="selectStar(this)">⭐⭐⭐⭐⭐</div>
+            <div class="star-opt" data-val="⭐⭐⭐⭐ Good"      onclick="selectStar(this)">⭐⭐⭐⭐</div>
+            <div class="star-opt" data-val="⭐⭐⭐ Average"    onclick="selectStar(this)">⭐⭐⭐</div>
+            <div class="star-opt" data-val="⭐⭐ Bad"          onclick="selectStar(this)">⭐⭐</div>
+            <div class="star-opt" data-val="⭐ Very Bad"       onclick="selectStar(this)">⭐</div>
+          </div>
         </div>
+      </div>
 
-        <div class="card">
-            <h2>Follow us on Instagram</h2>
-            <a class="insta-btn"
-                href="https://www.instagram.com/fresh_salad_kagaznagar?utm_source=qr&igsh=end0bGY0eHgzeDkz"
-                target="_blank">
-                📸 @fresh_salad_kaghaznagar
-            </a>
-        </div>
+      <div class="form-group">
+        <label class="form-label" for="message">Your Feedback</label>
+        <textarea class="form-control" id="message" rows="4"
+          placeholder="Tell us about your experience…"></textarea>
+      </div>
 
-        <div class="card delivery-banner">
+      <button class="btn-submit" onclick="sendFeedback()">
+        ✉️ Submit Feedback
+      </button>
+      <div id="feedback-success">✅ Thank you! Your feedback has been submitted.</div>
+    </div>
 
-            <h1>Mana Delivery</h1>
-            <p>Our Fast & Trusted Delivery patner– Kaghaznagar</p>
+  </main>
 
-            <div class="delivery-buttons">
+  <footer>
+    <p>© 2026 <strong>Fresh Salad Kaghaznagar</strong> &nbsp;|&nbsp; Eat Fresh, Stay Healthy 🌱</p>
+  </footer>
 
-                <a href="tel:9494378247" class="delivery-call">
-                    📞 Call Now
-                </a>
+  <a href="https://wa.me/919390276347" class="fab" title="WhatsApp">💬</a>
 
-                <a href="https://wa.me/919494378247" target="_blank" class="delivery-wa">
-                    💬 WhatsApp Order
-                </a>
+  <!-- SCRIPTS -->
+  <script>
+    /* DATE */
+    const today = new Date();
+    document.getElementById("today-date").textContent =
+      today.toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' });
 
-                <a href="https://sirpur-kagaznagar.github.io/mana-delivery1/?utm_source=ig&utm_medium=social&utm_content=link_in_bio"
-                    target="_blank" class="delivery-online">
-                    🛵 Order Online
-                </a>
+    /* STATUS */
+    const h = today.getHours();
+    const isOpen = h >= 6 && h < 12;
+    const badge = document.getElementById("status-badge");
+    document.getElementById("status-text").textContent = isOpen ? "Open Now" : "Closed · Opens 6 AM";
+    badge.className = isOpen ? "open" : "closed";
 
-            </div>
+    /* NAVBAR SCROLL */
+    window.addEventListener('scroll', () => {
+      document.getElementById("navbar").classList.toggle('scrolled', scrollY > 50);
+    });
 
-        </div>
-        <div class="card">
-            <h2>📝Feedback</h2>
+    /* STAR RATING */
+    let selectedRating = "";
+    function selectStar(el) {
+      document.querySelectorAll('.star-opt').forEach(s => s.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedRating = el.dataset.val;
+    }
 
-            <input type="text" id="fname" placeholder="Your Name" class="input-box"><br><br>
+    /* TRANSLATIONS */
+    const text = {
+      en: {
+        tagline: "Fresh • Healthy • Affordable",
+        updates: "Today's Updates", location: "Location", time: "Timings", menu: "Our Menu",
+        contact: "Order on WhatsApp", order: "Special Orders",
+        mi: ["Vegetable Salad","Fruit Salad","Sprouts","Mixed Salad"],
+        so: ["Birthday Parties","Functions & Events","Bulk Orders"]
+      },
+      hi: {
+        tagline: "ताज़ा • स्वस्थ • किफायती",
+        updates: "आज की जानकारी", location: "स्थान", time: "समय", menu: "मेनू",
+        contact: "व्हाट्सएप पर ऑर्डर", order: "विशेष ऑर्डर",
+        mi: ["सब्जी सलाद","फल सलाद","अंकुरित अनाज","मिश्रित सलाद"],
+        so: ["जन्मदिन पार्टी","कार्यक्रम","थोक ऑर्डर"]
+      },
+      te: {
+        tagline: "తాజా • ఆరోగ్యకరం • తక్కువ ధర",
+        updates: "ఈరోజు సమాచారం", location: "ప్రదేశము", time: "సమయం", menu: "మెనూ",
+        contact: "వాట్సాప్‌లో ఆర్డర్", order: "ప్రత్యేక ఆర్డర్లు",
+        mi: ["కూరగాయల సలాడ్","పండ్ల సలాడ్","మొలకలు","మిక్స్డ్ సలాడ్"],
+        so: ["పుట్టినరోజు పార్టీలు","వేడుకలు","బల్క్ ఆర్డర్లు"]
+      }
+    };
 
-            <select id="rating" class="input-box">
-                <option value="">Rate us ⭐</option>
-                <option>⭐⭐⭐⭐⭐ Excellent</option>
-                <option>⭐⭐⭐⭐ Good</option>
-                <option>⭐⭐⭐ Average</option>
-                <option>⭐⭐ Bad</option>
-                <option>⭐ Very Bad</option>
-            </select><br><br>
+    function setLang(lang, btn) {
+      const t = text[lang];
+      document.getElementById("hero-tagline").textContent = t.tagline;
+      document.getElementById("updates-title").textContent = t.updates;
+      document.getElementById("location-title").textContent = t.location;
+      document.getElementById("time-title").textContent = t.time;
+      document.getElementById("menu-title").textContent = t.menu;
+      document.getElementById("contact-title").textContent = t.contact;
+      document.getElementById("order-title").textContent = t.order;
+      ["mi-veg","mi-fruit","mi-sprouts","mi-mixed"].forEach((id,i) =>
+        document.getElementById(id).textContent = t.mi[i]);
+      ["so-1","so-2","so-3"].forEach((id,i) =>
+        document.getElementById(id).textContent = t.so[i]);
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+    }
+  </script>
 
-            <textarea id="message" placeholder="Write your feedback..." class="input-box" rows="4"></textarea><br><br>
+  <!-- FIREBASE FEEDBACK (unchanged) -->
+  <script type="module">
+    import { initializeApp }       from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+    import { getFirestore, collection, addDoc }
+                                   from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
-            <button onclick="sendFeedback()" class="whatsapp-order">Send Feedback</button>
+    const firebaseConfig = {
+      apiKey:            "AIzaSyDNIzgpWSDtA4X0vpFeLTG4mSq_9nPU67w",
+      authDomain:        "fresh-salad-kaghaznagar.firebaseapp.com",
+      projectId:         "fresh-salad-kaghaznagar",
+      storageBucket:     "fresh-salad-kaghaznagar.firebasestorage.app",
+      messagingSenderId: "36154230598",
+      appId:             "1:36154230598:web:938e62cd20df46c5360747"
+    };
 
-        </div>
+    const app = initializeApp(firebaseConfig);
+    const db  = getFirestore(app);
 
-    </section>
+    window.sendFeedback = async function () {
+      const name    = document.getElementById("fname").value.trim();
+      const rating  = window.selectedRating || "";
+      const message = document.getElementById("message").value.trim();
 
-    <footer>
-        <p>© 2026 Fresh Salad Kaghaznagar | Eat Fresh Stay Healthy 🌱</p>
-    </footer>
+      if (!name || !message) {
+        alert("Please fill in your name and feedback.");
+        return;
+      }
 
-    <a href="https://wa.me/919390276347" class="floating-wa">💬</a>
+      try {
+        await addDoc(collection(db, "feedback"), {
+          name, rating, message,
+          time: new Date().toLocaleString()
+        });
 
-    <script>
-        const today = new Date();
-        document.getElementById("today-date").innerHTML =
-            today.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+        document.getElementById("feedback-success").style.display = "block";
+        document.getElementById("fname").value    = "";
+        document.getElementById("message").value  = "";
+        window.selectedRating = "";
+        document.querySelectorAll('.star-opt').forEach(s => s.classList.remove('selected'));
 
-        const hour = today.getHours();
-        let status = hour >= 6 && hour < 12 ? "🟢 OPEN NOW" : "🔴 CLOSED NOW - Opens 6 AM";
-        let color = hour >= 6 && hour < 12 ? "#2e7d32" : "#c62828";
-        document.getElementById("status-bar").innerHTML = status;
-        document.getElementById("status-bar").style.background = color;
-
-        const text = {
-            en: { tagline: "Fresh • Healthy • Affordable", updates: "Today's Updates", location: "Location", time: "Timings", menu: "Menu" },
-            hi: { tagline: "ताज़ा • स्वस्थ • किफायती", updates: "आज की जानकारी", location: "स्थान", time: "समय", menu: "मेनू" },
-            te: { tagline: "తాజా • ఆరోగ్యకరం • తక్కువ ధర", updates: "ఈరోజు సమాచారం", location: "ప్రదేశము", time: "సమయం", menu: "మెనూ" }
-        };
-
-        function setLang(lang) {
-            document.getElementById("tagline").innerHTML = text[lang].tagline;
-            document.getElementById("updates-title").innerHTML = text[lang].updates;
-            document.getElementById("location-title").innerHTML = text[lang].location;
-            document.getElementById("time-title").innerHTML = text[lang].time;
-            document.getElementById("menu-title").innerHTML = text[lang].menu;
-        }
-
-
-    </script>
-    <!-- FIREBASE FEEDBACK DATABASE -->
-    <script type="module">
-
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
-
-        /* Your Firebase Config */
-        const firebaseConfig = {
-            apiKey: "AIzaSyDNIzgpWSDtA4X0vpFeLTG4mSq_9nPU67w",
-            authDomain: "fresh-salad-kaghaznagar.firebaseapp.com",
-            projectId: "fresh-salad-kaghaznagar",
-            storageBucket: "fresh-salad-kaghaznagar.firebasestorage.app",
-            messagingSenderId: "36154230598",
-            appId: "1:36154230598:web:938e62cd20df46c5360747"
-        };
-
-        /* Initialize Firebase */
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        /* NEW FEEDBACK FUNCTION (DATABASE) */
-        window.sendFeedback = async function () {
-
-            let name = document.getElementById("fname").value;
-            let rating = document.getElementById("rating").value;
-            let message = document.getElementById("message").value;
-
-            if (name === "" || message === "") {
-                alert("Please fill name and feedback");
-                return;
-            }
-
-            try {
-                await addDoc(collection(db, "feedback"), {
-                    name: name,
-                    rating: rating,
-                    message: message,
-                    time: new Date().toLocaleString()
-                });
-
-                alert("✅ Feedback submitted successfully!");
-
-                document.getElementById("fname").value = "";
-                document.getElementById("message").value = "";
-
-            } catch (error) {
-                alert("Error saving feedback");
-                console.error(error);
-            }
-        };
-
-    </script>
+      } catch (err) {
+        alert("Error saving feedback. Please try again.");
+        console.error(err);
+      }
+    };
+  </script>
 
 </body>
-
 </html>
